@@ -19,21 +19,14 @@ func (c ImgurClient) Send([]byte) error {
 	return nil
 }
 
-// GistClient is an implementation of Sender that can send a stream of bytes to the Gist service (part of GitHub).
-type GistClient struct{}
-
-// Send method implements Sender.
-func (c GistClient) Send([]byte) error {
-	fmt.Println("[GistClient] Sending file...")
-	return nil
-}
-
 // client returns the corresponding Sender according to the service requested.
 func client(service string) (Sender, error) {
 	if service == "gist" {
 		return GistClient{}, nil
 	} else if service == "imgur" {
 		return ImgurClient{}, nil
+	} else if service == "giphy" {
+		return GiphyClient{}, nil
 	}
 	return nil, errors.New("unknown service")
 }
